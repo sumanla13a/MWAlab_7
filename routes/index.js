@@ -16,7 +16,6 @@ const controllers = {
 			}
 			req.data = rest;
 			next();
-	  		// return res.render('index', { title: rest.message });
 		});
 	},
 	decipherMessage: function(req, res, next) {
@@ -27,12 +26,8 @@ const controllers = {
 			if(data) {
 				req.decipheredMessage += data.toString('utf8');
 			}
-			console.log(req.decipheredMessage);
 		});
-		decipher.on('end', function() {
-			console.log(arguments);
-			next();
-		});
+		decipher.on('end', next);
 		decipher.write(req.data.message, 'hex');
 		decipher.end();
 	},
